@@ -1,0 +1,5 @@
+node_modules/
+process.env
+.env
+2026_token
+Images/

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <title>New Year 2026</title>
+</head>
+<body>
+  <h1>your email adress is : <%= user.email %></h1>
+  <div class="cards">
+    <% products.forEach(product=>{ %>
+        <div class="card" id="<%= product._id %>">
+
+          <div class="head">
+            <h2> <%= product.title %> </h2>
+            <img src="<%= product.imgUrl%>" alt="network error"/>
+          </div>
+
+          <div class="last_card_part">
+
+            <div class="description">
+              <p ><%= product.describtion %></p>
+
+              <div class="btns_parent">
+                <form  class="cart_btn" action="/add_to_cart" method="POST">
+                  <input type="text" value="<%= product._id%>" name="id" hidden>
+                  <input type="submit" value="Add to Cart">
+                </form>
+                <form  class="delete_btn" action="/remove_product" method="POST">
+                  <input type="text" value="<%= product._id%>" name="id" hidden>
+                  <input type="submit" value="delete">
+                </form>
+              </div>
+            </div>
+
+            <div class="price_edit">
+              <p class="price"><%= product.price %> <span>$</span></p>
+              <button class="edit_btn"><a href="/edit/<%= product._id%>">Edit</a></button>
+          </div>
+
+        </div>
+      </div>
+      <% }) %>
+    </div>
+
+</body>
+</html>

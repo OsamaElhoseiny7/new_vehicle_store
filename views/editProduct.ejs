@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRODUCT PAGE 2026</title>
+  <link href="/editpro.css" rel="stylesheet"type="text/css" />
+</head>
+<body>
+    <form class="edit_form" method="POST" action="/edit" enctype="multipart/form-data">
+        <h1>Edit Product</h1>
+        <hr/>
+        <input type="file" id="imgUrl" name='imgUrl' accept="image/*" />
+        <label for="imgUrl">Choose An Image</label>
+        <input type="text" value="<%= product.imgUrl %>" name="imgName" hidden>
+         <input type="text" name='id' placeholder='id' value="<%= product._id %>"/>
+        <input type="text" name='title' placeholder='TITLE' value="<%= product.title %>"/>
+        <input type="text" name='describtion'placeholder='DESCRIBETION' value="<%= product.describtion %>"/>
+        <input type="number" name='price' placeholder='PRICE' value="<%= product.price %>"/>
+        <input type="submit" value='Edit'/>
+    </form>
+</body>
+</html>

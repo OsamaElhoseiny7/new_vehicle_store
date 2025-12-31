@@ -1,0 +1,34 @@
+export const addProduct = async (req, res, next)=> {
+  const { title, describtion, price } = req.body
+
+  if (!req.files) {
+    return res.status(400).json({ message: 'Image is required' })
+  }
+
+  const imgUploader = (buffer) => {
+    return new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: 'vehicles' },
+        (error, result) => {
+          if (result) resolve(result)
+          else reject(error)
+        }
+      )
+
+      streamifier.createReadStream(buffer).pipe(stream)
+    })
+  }
+
+  const filesData = await Promise.all(req.files.map(file=>imgUploader(file.buffer)))
+  const imgsUrl = filesData.map(result=>result.secure_url)
+  const product = new Product(title, describtion, imgsUrl, price)
+  // console.log("title is " + title + "  " + "describtion is "+ describtion +"  "+ "imgsUrl are " + imgsUrl + "  " + "price is " + price)
+  return product.addPro()
+    .then((result) => {
+      res.json({ message: `new product has been added successfully with id ${result.insertedId}` })
+      // res.render('homePage')
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'something went wrong while trying to upload your vehicle data' })
+    })
+}
